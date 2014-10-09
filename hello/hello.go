@@ -1,15 +1,20 @@
 package main
 
 import (
-	"os"
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 )
-
 
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]bytes(os.Environ()))
+
+		for _, v := range os.Environ() {
+
+			w.Write([]byte(fmt.Sprintf("%s\n", v)))
+		}
+
 	})
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
