@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"os"
 )
@@ -13,6 +14,12 @@ func main() {
 		for _, v := range os.Environ() {
 
 			w.Write([]byte(fmt.Sprintf("%s\n", v)))
+		}
+		w.Write([]byte("\n################################\n\n"))
+		addrs, _ := net.InterfaceAddrs()
+		for _, v := range addrs {
+
+			w.Write([]byte(fmt.Sprintf("%s\n", v.String())))
 		}
 
 	})
